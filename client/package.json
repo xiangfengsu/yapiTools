@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "umi dev",
+    "build": "umi build"
+  },
+  "devDependencies": {
+    "umi-plugin-react": "^1.15.2"
+  },
+  "dependencies": {
+    "@umijs/hooks": "^1.7.0",
+    "react-copy-to-clipboard": "^5.0.2",
+    "react-highlight-words": "^0.16.0",
+    "react-syntax-highlighter": "^12.2.1"
+  }
+}

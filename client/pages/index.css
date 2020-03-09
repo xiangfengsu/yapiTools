@@ -1,0 +1,26 @@
+
+.box {
+  padding: 12px;
+  
+}
+.syntaxWrap{
+    background-color: rgb(29, 31, 33);
+    border-radius: 0.3em;
+    height: 400px;
+    overflow-y: auto;
+}
+.uploadWrap{
+  position: relative;
+}
+.fileBtn{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.highlighterRow{
+  color: #f5222d;
+}
