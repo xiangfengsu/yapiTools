@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "umi dev",
+    "start": "PORT=9300 umi dev ",
     "build": "umi build"
   },
   "devDependencies": {

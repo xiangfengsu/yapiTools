@@ -6,7 +6,7 @@ import Highlighter from "react-highlight-words";
 
 const { Panel } = Collapse;
 
-export default ({ emit$, activeTableEmit$,  JsonData = [] }) => {
+export default ({ emit$, activeTableEmit$, JsonData = [] }) => {
   const [searchText, setSearchText] = useState("");
   const [activeKeys, setActiveKeys] = useState([]);
   const [selectedTableRowKeys, setSelectedTableRowKeys] = useState([]);
@@ -31,16 +31,18 @@ export default ({ emit$, activeTableEmit$,  JsonData = [] }) => {
   }, [selectedTableRowKeys]);
 
   const searchTextInTables = useCallback(
-    text => {
+    (text = "") => {
       const activeNames = [];
       JsonData.forEach(table => {
         const { columns, name } = table;
         columns.forEach(col => {
+          console.log(col);
           const {
             name: fieldName = "",
-            options: { comment }
+            options: { comment = "" }
           } = col;
-          if (fieldName.includes(text) || comment.includes(text)) {
+
+          if (fieldName.includes(text || "") || comment.includes(text || "")) {
             activeNames.push(name);
           }
         });
@@ -76,14 +78,16 @@ export default ({ emit$, activeTableEmit$,  JsonData = [] }) => {
         title: "字段名",
         dataIndex: "name",
         key: "name",
-        render: text => (
-          <Highlighter
-            highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
-            searchWords={[searchText]}
-            autoEscape
-            textToHighlight={text.toString()}
-          />
-        )
+        render(text = "") {
+          return (
+            <Highlighter
+              highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+              searchWords={[searchText]}
+              autoEscape
+              textToHighlight={text.toString()}
+            />
+          );
+        }
       },
       {
         title: "type",
@@ -99,18 +103,32 @@ export default ({ emit$, activeTableEmit$,  JsonData = [] }) => {
         title: "备注",
         dataIndex: "options.comment",
         key: "comment",
-        render: text => (
-          <Highlighter
-            highlightStyle={{
-              color: "#f5222d",
-              backgroundColor: "#fff",
-              padding: 0
-            }}
-            searchWords={[searchText]}
-            autoEscape
-            textToHighlight={text.toString()}
-          />
-        )
+        render(text = "") {
+          return (
+            <Highlighter
+              highlightStyle={{
+                color: "#f5222d",
+                backgroundColor: "#fff",
+                padding: 0
+              }}
+              searchWords={[searchText]}
+              autoEscape
+              textToHighlight={text.toString()}
+            />
+          );
+        }
+        // render: text => (
+        //   <Highlighter
+        //     highlightStyle={{
+        //       color: "#f5222d",
+        //       backgroundColor: "#fff",
+        //       padding: 0
+        //     }}
+        //     searchWords={[searchText]}
+        //     autoEscape
+        //     textToHighlight={text.toString()}
+        //   />
+        // )
       }
     ];
 

@@ -8,17 +8,16 @@ function toFormaterJson(coulmn, action) {
   const base = {
     code: 200,
     message: "",
-    body: null
+    body: null,
   };
 
   const newObj = [];
-  coulmn.forEach(col => {
+  coulmn.forEach((col) => {
     const {
       name,
-      options: { comment }
+      options: { comment },
     } = col;
     newObj.push(`"${name}":"",// ${comment} \n`);
-
   });
 
   const parsed = parse(`{
@@ -31,14 +30,14 @@ function toFormaterJson(coulmn, action) {
         pagination: {
           total: 5,
           current: "${body.pagination.current}",
-          pageSize: "${body.pagination.pageSize}"
+          pageSize: "${body.pagination.pageSize}",
         },
-        extra: {}
-      }
+        extra: {},
+      },
     });
   } else if (action === 2) {
     assign(base, {
-      body: parsed
+      body: parsed,
     });
   }
 
@@ -60,9 +59,9 @@ function sqlDdlToJson(ddl) {
         return {
           ...row,
           key: `${index + 1}_${cindex + 1}`,
-          name: humps.camelize(row.name)
+          name: humps.camelize(row.name),
         };
-      })
+      }),
     };
   });
 }
@@ -72,11 +71,11 @@ function sqlDdlToJson(ddl) {
   const page = await browser.newPage();
   await page.setViewport({
     width,
-    height
+    height,
   });
-  await page.goto("http://localhost:8000/#/");
+  await page.goto("http://localhost:9300/#/");
 
-  await page.exposeFunction("onFileUpload", text => {
+  await page.exposeFunction("onFileUpload", (text) => {
     return sqlDdlToJson(text);
   });
 
